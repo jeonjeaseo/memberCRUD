@@ -1,6 +1,7 @@
 package com.example.loginSpring.service;
 
 import com.example.loginSpring.domain.Member;
+import com.example.loginSpring.dto.LoginRequestDTO;
 import com.example.loginSpring.dto.SignUpRequestDTO;
 import com.example.loginSpring.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,9 @@ public class MemberService {
         memberRepository.save(member);
     }
     // 로그인
+    public void login(LoginRequestDTO loginRequestDTO) {
+        //
+    }
 
     // 회원 추가
 

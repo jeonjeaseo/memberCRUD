@@ -1,7 +1,9 @@
 package com.example.loginSpring.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
 
+@Getter
 public class LoginRequestDTO {
     @NotBlank(message = "학번 입력은 필수입니다.")
     private String studentId;
