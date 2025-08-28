@@ -1,6 +1,0 @@
-spring.application.name=loginSpring
-
-#jwt:
-#  secret: 3JV6k2sRmmuJ4UOeN8XWKxu8eAkU1z4U2qf5rAf64CY=   # 32??? Base64
-#  access-exp: 3600000        # 1 h (ms)
-#  refresh-exp: 604800000      # 7 d
