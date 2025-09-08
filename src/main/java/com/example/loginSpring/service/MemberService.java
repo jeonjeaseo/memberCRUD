@@ -41,7 +41,8 @@ public class MemberService {
     }
     // 로그인
     public void login(LoginRequestDTO loginRequestDTO) {
-        //
+        Member member = memberRepository.findByStudentId(loginRequestDTO.getStudentId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 학번입니다."));
     }
 
     // 회원 추가

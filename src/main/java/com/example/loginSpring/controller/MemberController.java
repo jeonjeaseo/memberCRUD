@@ -4,25 +4,31 @@ import com.example.loginSpring.dto.LoginRequestDTO;
 import com.example.loginSpring.dto.SignUpRequestDTO;
 import com.example.loginSpring.service.MemberService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/members")
+@RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
 
-    @Autowired
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
-
     // 회원가입
     @PostMapping("/signUp")
-    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequestDTO signUpRequestDTO) {
+    public ResponseEntity<String> signUp(@RequestBody @Valid SignUpRequestDTO signUpRequestDTO,
+                                         BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
+            return ResponseEntity.badRequest().body("입력 오류 : " + errorMessage);
+        }
+
+
         try {
             memberService.registerMember(signUpRequestDTO);
             return ResponseEntity.ok("회원가입 성공"); // 200
@@ -35,6 +41,10 @@ public class MemberController {
         }
     }
 
+    // 로그인
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
 
+    }
 
 }
