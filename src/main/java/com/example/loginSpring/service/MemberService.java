@@ -40,9 +40,16 @@ public class MemberService {
         memberRepository.save(member);
     }
     // 로그인
-    public void login(LoginRequestDTO loginRequestDTO) {
+    public Member login(LoginRequestDTO loginRequestDTO) {
         Member member = memberRepository.findByStudentId(loginRequestDTO.getStudentId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 학번입니다."));
+
+        // 비밀번호 검증 (현재는 평문 비교, 나중에 암호화 적용)
+        if(!loginRequestDTO.getPassword().equals(member.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        return member; // 인증 성공한 회원 정보 반환
     }
 
     // 회원 추가
